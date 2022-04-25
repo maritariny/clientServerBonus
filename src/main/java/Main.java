@@ -7,16 +7,15 @@ import java.net.Socket;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
         int port = 8089;
         String name = "";
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-
+        try (ServerSocket serverSocket = new ServerSocket(port);
             Socket clientSocket = serverSocket.accept(); // ждем подключения
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
 
             out.println("Write your name");
 
@@ -45,9 +44,6 @@ public class Main {
                     }
                 }
             }
-
-            in.close();
-            out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
